@@ -228,7 +228,7 @@ export default function WhatsAppAgentDashboard() {
                       <th className="px-3 md:px-6 py-4">Budget</th>
                       <th className="px-3 md:px-6 py-4">Class Mode</th>
                       <th className="px-3 md:px-6 py-4">Objections</th>
-                      <th className="px-3 md:px-6 py-4 text-center">
+                      <th className="px-4 md:px-6 py-4 text-center">
                         Mark For Call
                       </th>
                       <th className="px-3 md:px-6 py-4 text-center">
@@ -271,19 +271,6 @@ export default function WhatsAppAgentDashboard() {
                             </option>
                             <option value="Information Technology">
                               Information Technology
-                            </option>
-                            <option value="Engineering Mathematics">
-                              Engineering Mathematics
-                            </option>
-                            <option value="MBBS">MBBS</option>
-                            <option value="Cyber Security">
-                              Cyber Security
-                            </option>
-                            <option value="Cloud Computing">
-                              Cloud Computing
-                            </option>
-                            <option value="Full Stack Web Dev">
-                              Full Stack Web Dev
                             </option>
                           </select>
                         </td>
@@ -380,7 +367,7 @@ export default function WhatsAppAgentDashboard() {
                         </td>
 
                         {/*mark for closed */}
-                        <td className="px-3 md:px-6 py-4 text-center">
+                        <td className="px-3 md:px-8 py-4 text-center">
                           <button
                             onClick={() =>
                               handleLeadFieldUpdate(
