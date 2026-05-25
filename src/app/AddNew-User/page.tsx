@@ -1,15 +1,9 @@
 "use client";
 
-// 1. React & Built-ins
 import React, { useState } from "react";
 
-// 2. External Libraries
 import { Save, Trash2 } from "lucide-react";
 
-// 3. Internal Aliases
-// (Handled via relative paths to map to your shared folders safely)
-
-// 4. Relative Imports
 import Sidebar from "@/components/shared/Sidebar";
 import Navbar from "@/components/shared/Navbar";
 import { UserContext } from "@/types";
@@ -30,7 +24,6 @@ export default function AddNewUser() {
   const [location, setLocation] = useState<string>("");
   const [budget, setBudget] = useState<string>("");
 
-  // Input state clearing handler utility
   const handleClearForm = () => {
     setName("");
     setContact("");
@@ -56,7 +49,6 @@ export default function AddNewUser() {
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50/60">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 sm:p-6">
-              {/* Header Actions Panel Title Row Layout */}
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-slate-100 pb-5">
                 <div>
                   <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
@@ -67,7 +59,7 @@ export default function AddNewUser() {
                   </p>
                 </div>
 
-                {/* Actions Button Matrix Layer */}
+                {/* Actions Buttons */}
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
@@ -87,9 +79,8 @@ export default function AddNewUser() {
                 </div>
               </div>
 
-              {/* Balanced Layout Structure Content Grid */}
               <div className="mt-6 grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start">
-                {/* COLUMN 1: Demographics Input Block */}
+                {/* Input Block */}
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-4">
                   <h2 className="text-[10px] font-bold text-slate-700 uppercase tracking-wider border-b border-slate-200/60 pb-1.5">
                     Identity & Demographics
@@ -140,7 +131,7 @@ export default function AddNewUser() {
                   </label>
                 </div>
 
-                {/* COLUMN 2: Configuration Details Dropdowns Group */}
+                {/* course details*/}
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-4">
                   <h2 className="text-[10px] font-bold text-slate-700 uppercase tracking-wider border-b border-slate-200/60 pb-1.5">
                     Channel Parameters
@@ -212,7 +203,7 @@ export default function AddNewUser() {
                   </label>
                 </div>
 
-                {/* COLUMN 3: Verification Snapshot Panel & Text Area notes input */}
+                {/*extra notes */}
                 <div className="space-y-4">
                   <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm space-y-3">
                     <div className="space-y-0.5">
@@ -233,7 +224,7 @@ export default function AddNewUser() {
                     />
                   </div>
 
-                  {/* Summary Verification Section Profile Tracker Block */}
+                  {/* Summary of input */}
                   <div className="rounded-2xl border border-slate-200 bg-slate-50 text-slate-700 p-4 shadow-sm text-xs space-y-2 font-medium">
                     <p className="font-bold text-slate-700 border-b border-slate-300 pb-1.5 text-[11px] uppercase tracking-wider">
                       Live Selection Snapshot
@@ -271,8 +262,6 @@ export default function AddNewUser() {
                       <p className="text-slate-700 font-bold truncate">
                         {course}
                       </p>
-
-                      {/* Integrated Objection field display segment column value */}
                       <p className="text-slate-700 font-semibold">
                         Notes / Objection:
                       </p>
