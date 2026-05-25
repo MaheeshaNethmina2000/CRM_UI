@@ -103,9 +103,11 @@ export default function AgentDetails() {
                   <Briefcase className="h-4 w-4 text-slate-400 shrink-0" />
                   <div>
                     <p className="text-[10px] text-slate-400 uppercase">
-                      Department Location
+                      Department
                     </p>
-                    <p className="text-slate-700 mt-0.5">Whatsapp Operations</p>
+                    <p className="text-slate-700 mt-0.5">
+                      Call center Department
+                    </p>
                   </div>
                 </div>
 

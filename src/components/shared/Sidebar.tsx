@@ -45,7 +45,7 @@ export default function Sidebar({
       id: "Internal Chat",
       label: "Internal Chat",
       icon: MessageSquare,
-      href: "/internal-chat",
+      href: "/InternalChat",
     },
   ];
 
