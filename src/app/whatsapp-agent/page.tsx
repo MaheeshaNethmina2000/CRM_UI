@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 import {
   Users,
@@ -135,10 +136,12 @@ export default function WhatsAppAgentDashboard() {
                   );
                 })}
               </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 sm:px-5 py-3 sm:py-3.5 rounded-lg sm:rounded-xl shadow-md shadow-blue-600/15 flex items-center justify-center space-x-2 shrink-0 transition-colors cursor-pointer w-full lg:w-auto">
-                <UserPlus className="h-4 w-4" />
-                <span>Add New User</span>
-              </button>
+              <Link href="/AddNew-User">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 sm:px-5 py-3 sm:py-3.5 rounded-lg sm:rounded-xl shadow-md shadow-blue-600/15 flex items-center justify-center space-x-2 shrink-0 transition-colors cursor-pointer w-full lg:w-auto">
+                  <UserPlus className="h-4 w-4" />
+                  <span>Add New User</span>
+                </button>
+              </Link>
             </div>
 
             {/*Ingestion Search Query Filters & Options Toolbars */}
@@ -189,12 +192,24 @@ export default function WhatsAppAgentDashboard() {
                 <table className="w-full text-left border-collapse min-w-full">
                   <thead>
                     <tr className="border-b border-slate-100 bg-slate-50/50 text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">Contact</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">Name</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden sm:table-cell">Location</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden md:table-cell">Course</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden lg:table-cell">Platform</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">Budget</th>
+                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">
+                        Contact
+                      </th>
+                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">
+                        Name
+                      </th>
+                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden sm:table-cell">
+                        Location
+                      </th>
+                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden md:table-cell">
+                        Course
+                      </th>
+                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden lg:table-cell">
+                        Platform
+                      </th>
+                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">
+                        Budget
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-xs sm:text-xs text-slate-600 font-medium">
@@ -235,7 +250,9 @@ export default function WhatsAppAgentDashboard() {
                 </table>
               </div>
               <div className="p-3 sm:p-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between bg-white text-xs font-semibold text-slate-500 gap-3 sm:gap-0">
-                <span className="text-[11px] sm:text-xs">Showing 1-4 of 1,248 users</span>
+                <span className="text-[11px] sm:text-xs">
+                  Showing 1-4 of 1,248 users
+                </span>
                 <div className="flex items-center space-x-1">
                   <button className="p-1.5 sm:p-2 border border-slate-200 text-slate-400 hover:text-slate-600 rounded-lg sm:rounded-xl hover:bg-slate-50 cursor-pointer">
                     <ChevronLeft className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
