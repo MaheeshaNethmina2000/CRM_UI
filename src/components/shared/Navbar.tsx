@@ -27,7 +27,9 @@ export default function Navbar({ user, currentView }: NavbarProps) {
 
         {/* User Info */}
         <div className="flex items-center space-x-1.5 sm:space-x-2.5">
-          <p className="text-xs sm:text-xs font-bold text-slate-800 hidden sm:block">{user.name}</p>
+          <p className="text-xs sm:text-xs font-bold text-slate-800 hidden sm:block">
+            {user.name}
+          </p>
 
           {/* Avatar */}
           <div className="h-7 w-7 sm:h-8 sm:w-8 bg-blue-50 rounded-full border border-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs uppercase shadow-sm">

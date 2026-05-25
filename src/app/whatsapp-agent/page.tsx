@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 import {
   Users,
@@ -11,6 +12,10 @@ import {
   Download,
   ChevronLeft,
   ChevronRight,
+  Check,
+  AlertCircle,
+  Archive,
+  ArchiveX,
 } from "lucide-react";
 
 import Sidebar from "@/components/shared/Sidebar";
@@ -25,40 +30,73 @@ export default function WhatsAppAgentDashboard() {
 
   const [activeTab, setActiveTab] = useState<string>("dashboard");
 
-  const leads = [
+  const [leads, setLeads] = useState([
     {
-      phone: "077 012-3456",
+      id: 1,
       name: "Saman Perera",
+      phone: "0770123456",
       location: "Matara, Sri Lanka",
-      course: "Data Science Masters",
+      course: "Data Sciences",
       platform: "WhatsApp",
-      budget: "Rs5,200",
+      classMode: "Online",
+      budget: "Rs 5,200",
+      objection: "",
+      isCompleted: false,
+      isClosed: false,
     },
     {
-      phone: "071 234-5678",
+      id: 2,
       name: "Kamal Perera",
+      phone: "0712345678",
       location: "Wattala, Sri Lanka",
-      course: "Cloud Computing",
+      course: "Computer Sciences",
       platform: "Facebook",
-      budget: "Rs3,500",
+      classMode: "Physical",
+      budget: "Rs 3,500",
+      objection: "Fee too high",
+      isCompleted: true,
+      isClosed: false,
     },
     {
-      phone: "07765 43210",
+      id: 3,
       name: "Arjun Ranathunga",
-      location: "Kaluthara,Sri lanka",
-      course: "Full Stack Web Dev",
+      phone: "0776543210",
+      location: "Kaluthara, Sri Lanka",
+      course: "Information Technology",
       platform: "Instagram",
-      budget: "Rs2,800",
+      classMode: "Online",
+      budget: "Rs 2,800",
+      objection: "",
+      isCompleted: false,
+      isClosed: true,
     },
     {
-      phone: "077385 1000",
+      id: 4,
       name: "Supun Perera",
+      phone: "0773851000",
       location: "Galle, Sri Lanka",
       course: "Cyber Security",
       platform: "LinkedIn",
-      budget: "Rs4,100",
+      classMode: "Physical",
+      budget: "Rs 4,100",
+      objection: "Wants night batch",
+      isCompleted: false,
+      isClosed: false,
     },
-  ];
+  ]);
+
+  // for cell data grid updates
+  const handleLeadFieldUpdate = (
+    id: number,
+    field: string,
+    value: string | boolean,
+  ) => {
+    setLeads((prevLeads) =>
+      prevLeads.map((lead) =>
+        lead.id === id ? { ...lead, [field]: value } : lead,
+      ),
+    );
+  };
 
   return (
     <div className="flex h-screen bg-slate-100 font-sans overflow-hidden flex-col md:flex-row">
@@ -73,7 +111,7 @@ export default function WhatsAppAgentDashboard() {
 
         <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 bg-slate-50/60">
           <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
-            {/* Horizontal KPI Summary Cards & Add User Action */}
+            {/* KPI Banner Metrics Row */}
             <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1">
                 {[
@@ -85,7 +123,6 @@ export default function WhatsAppAgentDashboard() {
                     icon: Users,
                     color: "text-blue-600 bg-blue-50",
                   },
-
                   {
                     label: "Completed",
                     value: "780",
@@ -117,16 +154,8 @@ export default function WhatsAppAgentDashboard() {
                         </div>
                       </div>
                       <div className="pl-2 shrink-0">
-                        {card.trendUp === true && (
+                        {card.trendUp && (
                           <span className="text-[9px] sm:text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md whitespace-nowrap">
-                            {card.meta}
-                          </span>
-                        )}
-                        {card.trendUp === false && (
-                          <span className="h-2 w-2 bg-rose-500 rounded-full block mr-2" />
-                        )}
-                        {card.trendUp === null && (
-                          <span className="text-[9px] sm:text-[10px] font-medium text-slate-400">
                             {card.meta}
                           </span>
                         )}
@@ -135,27 +164,27 @@ export default function WhatsAppAgentDashboard() {
                   );
                 })}
               </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 sm:px-5 py-3 sm:py-3.5 rounded-lg sm:rounded-xl shadow-md shadow-blue-600/15 flex items-center justify-center space-x-2 shrink-0 transition-colors cursor-pointer w-full lg:w-auto">
+              <Link
+                href="/AddNew-User"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 sm:px-5 py-3 sm:py-3.5 rounded-lg sm:rounded-xl shadow-md shadow-blue-600/15 flex items-center justify-center space-x-2 shrink-0 transition-colors w-full lg:w-auto cursor-pointer"
+              >
                 <UserPlus className="h-4 w-4" />
                 <span>Add New User</span>
-              </button>
+              </Link>
             </div>
 
-            {/*Ingestion Search Query Filters & Options Toolbars */}
+            {/*  Filters*/}
             <div className="space-y-3 sm:space-y-4">
-              <div className="bg-white border border-slate-100 rounded-lg sm:rounded-2xl p-3 sm:p-3 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between shadow-sm">
+              <div className="bg-white border border-slate-100 rounded-lg sm:rounded-2xl p-3 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between shadow-sm">
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-semibold text-slate-600 overflow-x-auto">
                   <span className="text-slate-400 font-bold text-[10px] sm:text-[11px] uppercase tracking-wider pl-1 shrink-0">
                     Quick Filters:
                   </span>
-                  <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700 cursor-pointer text-xs">
+                  <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer text-xs">
                     <option>Added Date (All)</option>
                   </select>
-                  <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700 cursor-pointer text-xs">
+                  <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer text-xs">
                     <option>Completed Cases (All)</option>
-                  </select>
-                  <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-3 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700 cursor-pointer text-xs hidden sm:block">
-                    <option>Marked for Call (Status)</option>
                   </select>
                 </div>
                 <div className="flex items-center space-x-2 shrink-0">
@@ -183,62 +212,199 @@ export default function WhatsAppAgentDashboard() {
               </div>
             </div>
 
-            {/* Main Active Lead Data Grid Matrix Table & Pagination */}
+            {/* main content */}
             <div className="bg-white border border-slate-200 rounded-lg sm:rounded-2xl shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse min-w-full">
                   <thead>
                     <tr className="border-b border-slate-100 bg-slate-50/50 text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">Contact</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">Name</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden sm:table-cell">Location</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden md:table-cell">Course</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden lg:table-cell">Platform</th>
-                      <th className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">Budget</th>
+                      <th className="px-3 md:px-6 py-4">Name</th>
+                      <th className="px-3 md:px-6 py-4">Contact</th>
+                      <th className="px-3 md:px-6 py-4 hidden sm:table-cell">
+                        Location
+                      </th>
+                      <th className="px-3 md:px-6 py-4">Course</th>
+                      <th className="px-3 md:px-6 py-4">Platform</th>
+                      <th className="px-3 md:px-6 py-4">Budget</th>
+                      <th className="px-3 md:px-6 py-4">Class Mode</th>
+                      <th className="px-3 md:px-6 py-4">Objections</th>
+                      <th className="px-4 md:px-6 py-4 text-center">
+                        Mark For Call
+                      </th>
+                      <th className="px-3 md:px-6 py-4 text-center">
+                        Mark For Close
+                      </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 text-xs sm:text-xs text-slate-600 font-medium">
-                    {leads.map((lead, i) => (
+                  <tbody className="divide-y divide-slate-100 text-xs text-slate-600 font-medium">
+                    {leads.map((lead) => (
                       <tr
-                        key={i}
+                        key={lead.id}
                         className="hover:bg-slate-50/40 transition-colors"
                       >
-                        <td className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 text-slate-500 font-mono tracking-tight text-[11px] sm:text-xs">
+                        <td className="px-3 md:px-6 py-4 text-slate-800 font-bold whitespace-nowrap">
+                          {lead.name}
+                        </td>
+                        <td className="px-3 md:px-6 py-4 text-slate-500 font-mono tracking-tight">
                           {lead.phone}
                         </td>
-                        <td className="px-2 sm:px-4 md:px-6 py-3 sm:py-4">
-                          <div className="text-slate-800 font-bold whitespace-pre-wrap max-w-[100px] sm:max-w-[140px] text-[11px] sm:text-xs">
-                            {lead.name}
-                          </div>
+                        <td className="px-3 md:px-6 py-4 hidden sm:table-cell text-slate-400 font-medium whitespace-nowrap">
+                          {lead.location}
                         </td>
-                        <td className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden sm:table-cell">
-                          <div className="text-slate-400 font-medium whitespace-pre-wrap max-w-[100px] md:max-w-[140px] text-[11px] sm:text-xs">
-                            {lead.location}
-                          </div>
-                        </td>
-                        <td className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden md:table-cell">
-                          <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-2.5 py-1 sm:py-1.5 focus:outline-none focus:border-blue-500 font-semibold text-slate-700 cursor-pointer text-[10px] sm:text-[11px]">
-                            <option>{lead.course}</option>
+
+                        {/* course selection */}
+                        <td className="px-3 md:px-6 py-4">
+                          <select
+                            value={lead.course}
+                            onChange={(e) =>
+                              handleLeadFieldUpdate(
+                                lead.id,
+                                "course",
+                                e.target.value,
+                              )
+                            }
+                            className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 font-bold text-slate-700 cursor-pointer text-[11px] focus:outline-none focus:border-blue-500 min-w-[130px]"
+                          >
+                            <option value="Data Sciences">Data Sciences</option>
+                            <option value="Computer Sciences">
+                              Computer Sciences
+                            </option>
+                            <option value="Information Technology">
+                              Information Technology
+                            </option>
                           </select>
                         </td>
-                        <td className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 hidden lg:table-cell">
-                          <select className="bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 sm:px-2.5 py-1 sm:py-1.5 focus:outline-none focus:border-blue-500 font-semibold text-slate-700 cursor-pointer text-[10px] sm:text-[11px]">
-                            <option>{lead.platform}</option>
+
+                        {/* paltform */}
+                        <td className="px-3 md:px-6 py-4">
+                          <select
+                            value={lead.platform}
+                            onChange={(e) =>
+                              handleLeadFieldUpdate(
+                                lead.id,
+                                "platform",
+                                e.target.value,
+                              )
+                            }
+                            className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 font-bold text-slate-700 cursor-pointer text-[11px] focus:outline-none focus:border-blue-500 min-w-[110px]"
+                          >
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="LinkedIn">LinkedIn</option>
                           </select>
                         </td>
-                        <td className="px-2 sm:px-4 md:px-6 py-3 sm:py-4 text-slate-900 font-extrabold text-xs sm:text-sm">
+
+                        <td className="px-3 md:px-6 py-4 text-slate-900 font-extrabold whitespace-nowrap">
                           {lead.budget}
+                        </td>
+
+                        {/* class mode */}
+                        <td className="px-3 md:px-6 py-4">
+                          <select
+                            value={lead.classMode}
+                            onChange={(e) =>
+                              handleLeadFieldUpdate(
+                                lead.id,
+                                "classMode",
+                                e.target.value,
+                              )
+                            }
+                            className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 font-bold text-slate-700 cursor-pointer text-[11px] focus:outline-none focus:border-blue-500"
+                          >
+                            <option value="Online">Online</option>
+                            <option value="Physical">Physical</option>
+                          </select>
+                        </td>
+
+                        {/* objections */}
+                        <td className="px-3 md:px-6 py-4">
+                          <input
+                            type="text"
+                            value={lead.objection}
+                            onChange={(e) =>
+                              handleLeadFieldUpdate(
+                                lead.id,
+                                "objection",
+                                e.target.value,
+                              )
+                            }
+                            placeholder="Add note..."
+                            className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 font-medium text-slate-700 text-[11px] focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-blue-500 w-full min-w-[120px]"
+                          />
+                        </td>
+
+                        {/* mark for calles */}
+                        <td className="px-3 md:px-6 py-4 text-center">
+                          <button
+                            onClick={() =>
+                              handleLeadFieldUpdate(
+                                lead.id,
+                                "isCompleted",
+                                !lead.isCompleted,
+                              )
+                            }
+                            className={`mx-auto h-7 px-3 flex items-center justify-center space-x-1 rounded-xl text-[10px] font-bold border transition-all cursor-pointer ${
+                              lead.isCompleted
+                                ? "bg-emerald-50 text-emerald-700 border-emerald-200 shadow-sm shadow-emerald-500/5"
+                                : "bg-slate-50 text-slate-500 border-slate-200 hover:border-blue-300 hover:text-blue-600"
+                            }`}
+                            title={
+                              lead.isCompleted
+                                ? "Completed"
+                                : "Mark as completed"
+                            }
+                          >
+                            {lead.isCompleted ? (
+                              <Check className="h-3 w-3 shrink-0" />
+                            ) : (
+                              <AlertCircle className="h-3 w-3 shrink-0" />
+                            )}
+                            <span>
+                              {lead.isCompleted ? "Completed" : "Pending"}
+                            </span>
+                          </button>
+                        </td>
+
+                        {/*mark for closed */}
+                        <td className="px-3 md:px-8 py-4 text-center">
+                          <button
+                            onClick={() =>
+                              handleLeadFieldUpdate(
+                                lead.id,
+                                "isClosed",
+                                !lead.isClosed,
+                              )
+                            }
+                            className={`mx-auto h-7 px-3 flex items-center justify-center space-x-1 rounded-xl text-[10px] font-bold border transition-all cursor-pointer ${
+                              lead.isClosed
+                                ? "bg-rose-50 text-rose-700 border-rose-200 shadow-sm shadow-rose-500/5"
+                                : "bg-slate-50 text-slate-500 border-slate-200 hover:border-rose-300 hover:text-rose-600"
+                            }`}
+                            title={lead.isClosed ? "Closed" : "Mark as closed"}
+                          >
+                            {lead.isClosed ? (
+                              <Archive className="h-3 w-3 shrink-0" />
+                            ) : (
+                              <ArchiveX className="h-3 w-3 shrink-0" />
+                            )}
+                            <span>{lead.isClosed ? "Closed" : "Active"}</span>
+                          </button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+
+              {/* Data Pagination */}
               <div className="p-3 sm:p-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between bg-white text-xs font-semibold text-slate-500 gap-3 sm:gap-0">
-                <span className="text-[11px] sm:text-xs">Showing 1-4 of 1,248 users</span>
+                <span className="text-[11px] sm:text-xs">
+                  Showing 1-4 of 1,248 users
+                </span>
                 <div className="flex items-center space-x-1">
                   <button className="p-1.5 sm:p-2 border border-slate-200 text-slate-400 hover:text-slate-600 rounded-lg sm:rounded-xl hover:bg-slate-50 cursor-pointer">
-                    <ChevronLeft className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                    <ChevronLeft className="h-3.5 w-3.5" />
                   </button>
                   <button className="h-7 w-7 sm:h-8 sm:w-8 bg-blue-600 text-white rounded-lg sm:rounded-xl font-bold flex items-center justify-center shadow-sm shadow-blue-600/10 cursor-pointer text-xs">
                     1
@@ -250,7 +416,7 @@ export default function WhatsAppAgentDashboard() {
                     3
                   </button>
                   <button className="p-1.5 sm:p-2 border border-slate-200 text-slate-400 hover:text-slate-600 rounded-lg sm:rounded-xl hover:bg-slate-50 cursor-pointer">
-                    <ChevronRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                    <ChevronRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
               </div>

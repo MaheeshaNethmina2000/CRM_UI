@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 import {
   LayoutDashboard,
-  UserSquare2,
+  UserSquare,
   LogOut,
   ChevronLeft,
   ChevronRight,
   User,
+  MessageSquare,
 } from "lucide-react";
 
 import { UserContext } from "@/types";
@@ -27,8 +29,24 @@ export default function Sidebar({
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { id: "agent-details", label: "Agent Details", icon: UserSquare2 },
+    {
+      id: "dashboard",
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      href: "/",
+    },
+    {
+      id: "agent-details",
+      label: "Agent Details",
+      icon: UserSquare,
+      href: "/Agent-Details",
+    },
+    {
+      id: "Internal Chat",
+      label: "Internal Chat",
+      icon: MessageSquare,
+      href: "/InternalChat",
+    },
   ];
 
   return (
@@ -50,7 +68,7 @@ export default function Sidebar({
         )}
       </button>
 
-      {/* 1. Header: Dark Blue/Indigo Profile Panel matching your design image */}
+      {/*Header*/}
       <div
         className={`p-3 sm:p-4 bg-slate-200 text-white flex flex-col items-center justify-center text-center relative overflow-hidden transition-all duration-300 ${
           isExpanded ? "h-40 sm:h-44" : "h-20 sm:h-24"
@@ -82,17 +100,17 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* 2. Body: Light Background with High Contrast Blue Highlights */}
       <nav className="flex-1 p-2 sm:p-3 space-y-1 sm:space-y-1.5 mt-3 sm:mt-4">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
 
           return (
-            <button
+            <Link
+              href={item.href}
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center rounded-lg sm:rounded-xl text-xs font-semibold tracking-wide transition-all cursor-pointer ${
+              className={`w-full flex items-center rounded-lg sm:rounded-xl text-xs font-semibold tracking-wide transition-all ${
                 isExpanded
                   ? "px-3 sm:px-4 py-2 sm:py-2.5 space-x-2 sm:space-x-3.5 justify-start"
                   : "p-2 sm:p-2.5 justify-center"
@@ -109,12 +127,12 @@ export default function Sidebar({
               {isExpanded && (
                 <span className="truncate text-xs">{item.label}</span>
               )}
-            </button>
+            </Link>
           );
         })}
       </nav>
 
-      {/* 3. Footer: Clean Logout Anchor */}
+      {/*Footer*/}
       <div className="p-2 sm:p-3 border-t border-slate-200/60 bg-slate-100/40">
         <button
           className={`w-full flex items-center rounded-lg sm:rounded-xl text-xs font-semibold tracking-wide text-rose-500 hover:bg-rose-50 hover:text-rose-600 transition-colors cursor-pointer ${
