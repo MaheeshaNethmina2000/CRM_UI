@@ -231,7 +231,7 @@ export default function WhatsAppAgentDashboard() {
                       <th className="px-4 md:px-6 py-4 text-center">
                         Mark For Call
                       </th>
-                      <th className="px-3 md:px-6 py-4 text-center">
+                      <th className="px-4 md:px-4 py-4 text-center">
                         Mark For Close
                       </th>
                     </tr>
