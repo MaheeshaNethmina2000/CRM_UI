@@ -38,7 +38,7 @@ export default function Sidebar({
       id: "agent-details",
       label: "Agent Details",
       icon: UserSquare,
-      href: "/agent-details",
+      href: "/Agent-Details",
     },
     {
       id: "Internal Chat",
