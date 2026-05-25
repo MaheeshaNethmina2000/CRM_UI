@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   User,
+  MessageSquare,
 } from "lucide-react";
 
 import { UserContext } from "@/types";
@@ -43,7 +44,7 @@ export default function Sidebar({
     {
       id: "Internal Chat",
       label: "Internal Chat",
-      icon: UserSquare,
+      icon: MessageSquare,
       href: "/internal-chat",
     },
   ];
